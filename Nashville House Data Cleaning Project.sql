@@ -1,4 +1,4 @@
-/****Script for SelectTopNrows command from SSMS ******/
+/**** Nashville Housing Data Cleaning Project ******/
 -- SELECT TOP 100 * FROM dbo.NashvilleHousing
 --SELECT * FROM [dbo].[NashvilleHousing]
 
@@ -26,7 +26,7 @@
 
   /*
 
-Exploratory Data Aanlysis in SQL
+Exploratory Data Analysis in SQL
 
 */
 
@@ -233,42 +233,6 @@ SET SoldAsVacant = CASE WHEN SoldAsVacant = 'Y' THEN 'Yes'
 ------ Remove Duplicates
 -- Partition data (ON THINS UNIQUE TO EACH ROW) due to the duplicate rows
 
-SELECT *,
-	ROW_NUMBER() OVER (
-	PARTITION BY ParcelID,
-				  PropertyAddress,
-				  SalePrice,
-				  SaleDate,
-				 LegalReference
-				 ORDER BY
-					UniqueID
-					) row_num
-
-From PortfolioProject.dbo.NashvilleHousing
-order by ParcelID
-
-
-WITH RowNumCTE AS(
-Select *,
-	ROW_NUMBER() OVER (
-	PARTITION BY ParcelID,
-				 PropertyAddress,
-				 SalePrice,
-				 SaleDate,
-				 LegalReference
-				 ORDER BY
-					UniqueID
-					) row_num
-
-From PortfolioProject.dbo.NashvilleHousing
---order by ParcelID
-)
-Select *
-From RowNumCTE
-Where row_num > 1
-Order by PropertyAddress
-
-
 -- Delete duplicates
 WITH RowNumCTE AS(
 Select *,
@@ -291,7 +255,7 @@ Where row_num > 1
 -- order by PropertyAddress
 
 --- Duplicates successfully removed
--- This line of query below successfullyu removed the duplicates
+-- This line of query below successfully removed the duplicates
 
 WITH RowNumCTE AS(
 Select *,
@@ -325,3 +289,4 @@ DROP COLUMN OwnerAddress, TaxDistrict, PropertyAddress
 
 ALTER TABLE PortfolioProject.dbo.NashvilleHousing
 DROP COLUMN SaleDate
+
