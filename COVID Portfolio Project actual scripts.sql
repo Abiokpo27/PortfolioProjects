@@ -1,4 +1,4 @@
--- Portfolio Data Exploration
+-- Portfolio Data Exploration Analysis
 -- COVID Data 
 
 SELECT *
